@@ -1,0 +1,6 @@
+.env
+.mp3
+.wav
+venv/
+env/
+emergency_bot/
