@@ -414,6 +414,70 @@ if st.session_state.current_page == "response":
         for message in st.session_state.messages:
             with st.chat_message(message["role"]): 
                 st.markdown(message["content"])
+        
+        # ✨ NEW: Add chat input for continuous conversation (text + voice)
+        st.markdown("<br>", unsafe_allow_html=True)
+        
+        col_input, col_voice = st.columns([3, 1])
+        
+        follow_up = None
+        detected_lang = "en"
+        
+        with col_input:
+            text_input = st.chat_input("Continue the conversation...")
+            if text_input:
+                follow_up = text_input
+                detected_lang = utils.translator.detect(follow_up).lang
+        
+        with col_voice:
+            st.markdown("<br>", unsafe_allow_html=True)
+            if st.button("🎤 Speak", key="continue_voice_btn", use_container_width=True):
+                follow_up, detected_lang = utils.get_voice_input()
+        
+        if follow_up:
+            detected_lang = utils.translator.detect(follow_up).lang
+            english_text = utils.translate_text(follow_up, dest="en")
+            
+            # Check if it's now an emergency
+            emergency_type = check_keyword_override(english_text.lower())
+            if not emergency_type:
+                emergency_type = detect_emergency_hf(english_text)
+            
+            if emergency_type and emergency_type != "casual conversation":
+                # Switch to emergency mode
+                st.session_state.messages.clear()
+                details = emergencies.get(emergency_type)
+                final_response = utils.translate_text(details["response"], dest=detected_lang)
+                final_tip = utils.translate_text(details["tip"], dest=detected_lang)
+                alert_data = {
+                    "role": "alert",
+                    "data": {
+                        "emergency_type": emergency_type, 
+                        "response": final_response, 
+                        "tip": final_tip, 
+                        "icon": details["icon"], 
+                        "triggering_input": f"You said: {follow_up} ({detected_lang})",
+                        "lang": detected_lang,
+                        "user": follow_up 
+                    }
+                }
+                st.session_state.messages.append(alert_data)
+                st.session_state.alert_audio_played = False
+                st.rerun()
+            else:
+                # Continue casual conversation
+                st.session_state.messages.append({"role": "user", "content": follow_up})
+                final_ai_response = get_hardcoded_response(english_text, detected_lang)
+                st.session_state.messages.append({"role": "assistant", "content": final_ai_response})
+                
+                # Update TTS data
+                st.session_state.speak_now = {
+                    "response": final_ai_response, 
+                    "tip": "", 
+                    "lang": detected_lang
+                }
+                st.session_state.casual_audio_played = False
+                st.rerun()
 
 else:
     # Home Page
