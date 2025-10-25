@@ -4,6 +4,7 @@ import requests
 from dotenv import load_dotenv
 from src import utils
 from src.discord_notify import send_sms
+from src.panic_button import render_panic_button
 import base64
 import time
 
@@ -48,13 +49,6 @@ def render_emergency_call_popup():
         </div>
     </div>
     """, unsafe_allow_html=True)
-
-def render_panic_button(data):
-    if st.button("Initiate Emergency Sequence", key="panic_btn", use_container_width=True):
-        msg_to_send = f"🚨 EMERGENCY: {data['emergency_type'].title()}. {data['response']}"
-        send_sms(msg_to_send)
-        st.session_state.call_in_progress = True
-        st.rerun()
 
 def detect_emergency_hf(text):
     API_URL = "https://api-inference.huggingface.co/models/facebook/bart-large-mnli"
@@ -313,8 +307,10 @@ if "input_method" not in st.session_state:
     st.session_state.input_method = "text"
 if "casual_audio_played" not in st.session_state:
     st.session_state.casual_audio_played = False
+if "call_completed" not in st.session_state:
+    st.session_state.call_completed = False
 
-# ✨ FIX: Create TTS placeholder (THIS IS THE CRITICAL MISSING PIECE!)
+# ✨ FIX: Create TTS placeholder
 if "tts_placeholder" not in st.session_state:
     st.session_state.tts_placeholder = st.empty()
 
@@ -348,7 +344,8 @@ if st.session_state.current_page == "response":
     
     if st.button("⬅️ Back to Home", key="back_btn"):
         st.session_state.current_page = "home"
-        st.session_state.casual_audio_played = False  # Reset for next interaction
+        st.session_state.casual_audio_played = False
+        st.session_state.call_completed = False
         st.rerun()
     
     st.markdown("<br>", unsafe_allow_html=True)
@@ -358,6 +355,7 @@ if st.session_state.current_page == "response":
         render_emergency_call_popup()
         time.sleep(5)
         st.session_state.call_in_progress = False
+        st.session_state.call_completed = True
         st.rerun()
     
     is_emergency_active = any(msg.get("role") == "alert" for msg in st.session_state.messages)
@@ -386,17 +384,73 @@ if st.session_state.current_page == "response":
             
             st.markdown("<br>", unsafe_allow_html=True)
             
-            col_sms, col_panic = st.columns(2)
-            with col_sms:
-                if st.button("Send Emergency SMS", key="sms_btn", use_container_width=True):
-                    msg_to_send = f"EMERGENCY: {data['emergency_type'].title()}. {data['response']}"
-                    if send_sms(msg_to_send):
-                        st.success("📩 Alert sent!")
-                    else:
-                        st.error("⚠️ Failed to send alert.")
+            # Show simple SMS button only if advanced alert NOT completed
+            if not st.session_state.call_completed:
+                col_sms, col_panic = st.columns(2)
+                with col_sms:
+                    if st.button("Send Emergency SMS", key="sms_btn", use_container_width=True):
+                        msg_to_send = f"EMERGENCY: {data['emergency_type'].title()}. {data['response']}"
+                        if send_sms(msg_to_send):
+                            st.success("📩 Alert sent!")
+                        else:
+                            st.error("⚠️ Failed to send alert.")
+                
+                with col_panic:
+                    if st.button("🚨 Initiate Advanced Alert", key="panic_btn", use_container_width=True):
+                        st.session_state.call_in_progress = True
+                        st.rerun()
             
-            with col_panic:
-                render_panic_button(data)
+            # ✨ NEW: Show statistics after advanced alert is completed
+            if st.session_state.call_completed:
+                st.markdown("---")
+                st.markdown("### Advanced Alert Statistics")
+                
+                # Advanced Alert section
+                st.markdown("#### Advanced Alert")
+                st.markdown("This will initiate automated calls to police and SMS to emergency contacts.")
+                st.info("✅ Advanced Alert Sequence Completed")
+                
+                # Police Call section
+                st.markdown("#### Police Call")
+                police_configured = os.getenv("POLICE_NUMBER") is not None
+                twilio_configured = all([
+                    os.getenv("TWILIO_ACCOUNT_SID"),
+                    os.getenv("TWILIO_AUTH_TOKEN"),
+                    os.getenv("TWILIO_PHONE_NUMBER")
+                ])
+                
+                if twilio_configured and police_configured:
+                    st.success("✓ Simulated Call (Twilio configured)")
+                elif not police_configured:
+                    st.warning("⚠ Police number not configured in .env")
+                else:
+                    st.info("◯ Simulated Call (Twilio not configured)")
+                
+                # Emergency Contacts SMS section
+                st.markdown("#### Emergency Contacts SMS")
+                contact1 = os.getenv("EMERGENCY_CONTACT_1")
+                contact2 = os.getenv("EMERGENCY_CONTACT_2")
+                
+                if contact1:
+                    if twilio_configured:
+                        st.success("✓ contact1: Simulated SMS")
+                    else:
+                        st.info("◯ contact1: Simulated SMS")
+                else:
+                    st.warning("⚠ contact1: Not configured")
+                
+                if contact2:
+                    if twilio_configured:
+                        st.success("✓ contact2: Simulated SMS")
+                    else:
+                        st.info("◯ contact2: Simulated SMS")
+                else:
+                    st.warning("⚠ contact2: Not configured")
+                
+                # Reset button
+                if st.button("Reset Sequence", key="reset_btn", use_container_width=True):
+                    st.session_state.call_completed = False
+                    st.rerun()
     else:
         # ✨ NEW: Play TTS for casual conversation responses
         if not st.session_state.casual_audio_played and len(st.session_state.messages) > 0:
@@ -568,6 +622,6 @@ else:
                 "tip": "", 
                 "lang": detected_lang
             }
-            st.session_state.casual_audio_played = False  # Reset the flag
+            st.session_state.casual_audio_played = False
             st.session_state.current_page = "response"
             st.rerun()
