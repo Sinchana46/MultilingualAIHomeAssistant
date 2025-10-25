@@ -1,0 +1,14 @@
+streamlit
+googletrans==4.0.0-rc1
+google-generativeai>=0.5.0
+speechrecognition
+sounddevice
+soundfile
+pyttsx3
+requests
+huggingface-hub
+python-dotenv
+pillow
+gTTS
+playsound==1.2.2
+edge_tts
