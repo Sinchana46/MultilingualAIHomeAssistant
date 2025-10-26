@@ -49,20 +49,17 @@ Follow these steps to get the project running on your local machine.
 Create:
 
 * python -m venv venv
-* Activate (Windows):
+* Activate (Windows): .\venv\Scripts\activate
+  
+* Activate (Mac/Linux): source venv/bin/activate
 
-* .\venv\Scripts\activate
-* Activate (Mac/Linux):
-
-* source venv/bin/activate
 3. Install Dependencies
 * Install all required packages from the requirements.txt file.
 
 * pip install -r requirements.txt
+  
 4. Set Up Environment Variables
 * Create a file named .env in the project's root directory and add your secret API keys. The app will run in "simulation mode" for Twilio if these keys are left blank.
-
-Code snippet
 
 # Hugging Face API Key
 HF_API_KEY="hf_YourHuggingFaceKeyHere"
