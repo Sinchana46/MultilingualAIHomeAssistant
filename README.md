@@ -19,6 +19,7 @@ This project was built to solve a critical problem: in a crisis, language barrie
     * *Quick Alert:* A simple "Send Emergency SMS" button to instantly send a notification to a pre-configured Discord channel.
     * *Advanced Panic Button:* An escalation option that initiates a full sequence of automated voice calls (to police) and SMS messages (to emergency contacts) using Twilio.
 <img width="1905" height="826" alt="image" src="https://github.com/user-attachments/assets/7ac633bb-9cfc-4e4b-8e00-61c9a51c0905" />
+
 ---
 
 ## Tech Stack
@@ -39,14 +40,14 @@ This project was built to solve a critical problem: in a crisis, language barrie
 
 Follow these steps to get the project running on your local machine.
 
-```bash
+```
 1. Clone the Repository
 git clone [https://github.com/your-username/your-repo-name.git]
 cd your-repo-name
 
 2. Create and Activate a Virtual Environment
 
-This keeps the project's dependencies isolated.
+This keeps the project dependencies isolated.
 Create:
 python -m venv venv
 
@@ -62,7 +63,7 @@ Install all required packages from the requirements.txt file.
 pip install -r requirements.txt
 
 4. Set Up Environment Variables
-Create a file named .env in the project's root directory and add your secret API keys. The app will run in "simulation mode" for Twilio if these keys are left blank.
+Create a file named .env in the project root directory and add your secret API keys. The app will run in "simulation mode" for Twilio if these keys are left blank.
 
 # Hugging Face API Key
 HF_API_KEY="hf_YourHuggingFaceKeyHere"
