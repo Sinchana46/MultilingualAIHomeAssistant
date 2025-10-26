@@ -43,8 +43,8 @@ Follow these steps to get the project running on your local machine.
 ```
 1. Clone the Repository
 
-git clone [https://github.com/your-username/your-repo-name.git]
-cd your-repo-name
+git clone https://github.com/Sinchana46/MultilingualAIHomeAssistant.git
+cd MultilingualAIHomeAssistant
 
 2. Create and Activate a Virtual Environment
 
