@@ -48,23 +48,15 @@ This keeps the project's dependencies isolated.
 
 Create:
 
-Bash
-
 python -m venv venv
 Activate (Windows):
-
-Bash
 
 .\venv\Scripts\activate
 Activate (Mac/Linux):
 
-Bash
-
 source venv/bin/activate
 3. Install Dependencies
 Install all required packages from the requirements.txt file.
-
-Bash
 
 pip install -r requirements.txt
 4. Set Up Environment Variables
