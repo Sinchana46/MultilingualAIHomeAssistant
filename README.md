@@ -43,34 +43,26 @@ Follow these steps to get the project running on your local machine.
 ```bash
 git clone [https://github.com/your-username/your-repo-name.git]
 cd your-repo-name
+
 2. Create and Activate a Virtual Environment
 This keeps the project's dependencies isolated.
 
 Create:
 
-Bash
-
 python -m venv venv
 Activate (Windows):
-
-Bash
 
 .\venv\Scripts\activate
 Activate (Mac/Linux):
 
-Bash
-
 source venv/bin/activate
+
 3. Install Dependencies
 Install all required packages from the requirements.txt file.
-
-Bash
 
 pip install -r requirements.txt
 4. Set Up Environment Variables
 Create a file named .env in the project's root directory and add your secret API keys. The app will run in "simulation mode" for Twilio if these keys are left blank.
-
-Code snippet
 
 # Hugging Face API Key
 HF_API_KEY="hf_YourHuggingFaceKeyHere"
@@ -88,8 +80,7 @@ TWILIO_PHONE_NUMBER="+1..." # Your Twilio phone number (e.g., from the US)
 POLICE_NUMBER="+91..." # Use a verified personal number for testing
 EMERGENCY_CONTACT_1="+91..."
 EMERGENCY_CONTACT_2="+91..."
-5. Run the Application
-Bash
 
+5. Run the Application
 streamlit run app.py
 The application should now be running in your web browser!
