@@ -18,7 +18,7 @@ This project was built to solve a critical problem: in a crisis, language barrie
 * *Dual-Layer Alert System:*
     * *Quick Alert:* A simple "Send Emergency SMS" button to instantly send a notification to a pre-configured Discord channel.
     * *Advanced Panic Button:* An escalation option that initiates a full sequence of automated voice calls (to police) and SMS messages (to emergency contacts) using Twilio.
-
+<img width="1905" height="826" alt="image" src="https://github.com/user-attachments/assets/7ac633bb-9cfc-4e4b-8e00-61c9a51c0905" />
 ---
 
 ## Tech Stack
