@@ -35,12 +35,12 @@ This project was built to solve a critical problem: in a crisis, language barrie
 
 ---
 
-## Setup & Installation
+### Setup & Installation
 
 Follow these steps to get the project running on your local machine.
 
-### 1. Clone the Repository
 ```bash
+1. Clone the Repository
 git clone [https://github.com/your-username/your-repo-name.git]
 cd your-repo-name
 
