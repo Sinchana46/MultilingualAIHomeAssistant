@@ -7,21 +7,21 @@ This project was built to solve a critical problem: in a crisis, language barrie
 
 ---
 
-## 🌟 Core Features
+## Core Features
 
-* *🗣 Seamless Multilingual Support:* Users can speak or type in their native language (including English, Hindi, Kannada, Tamil, etc.). SevaAI accurately detects the language and responds in that same language.
-* *🧠 Hybrid Emergency Detection:* A powerful two-step system ensures accuracy:
+* *Seamless Multilingual Support:* Users can speak or type in their native language (including English, Hindi, Kannada, Tamil, etc.). SevaAI accurately detects the language and responds in that same language.
+* *Hybrid Emergency Detection:* A powerful two-step system ensures accuracy:
     1.  *Keyword Matching:* Instantly catches high-priority keywords for the fastest possible response.
     2.  *Hugging Face ML Model:* Uses a sophisticated NLP model (facebook/bart-large-mnli) to understand the context of more complex sentences.
-* *💬 Robust Casual Chat:* For non-emergency interactions, SevaAI utilizes a reliable, hardcoded chatbot, ensuring 100% uptime without the risk of external API failures.
-* *🔊 High-Quality Voice Output:* All responses are spoken back to the user using edge-tts for natural-sounding, multilingual speech.
-* *🚨 Dual-Layer Alert System:*
+* *Robust Casual Chat:* For non-emergency interactions, SevaAI utilizes a reliable, hardcoded chatbot, ensuring 100% uptime without the risk of external API failures.
+* *High-Quality Voice Output:* All responses are spoken back to the user using edge-tts for natural-sounding, multilingual speech.
+* *Dual-Layer Alert System:*
     * *Quick Alert:* A simple "Send Emergency SMS" button to instantly send a notification to a pre-configured Discord channel.
     * *Advanced Panic Button:* An escalation option that initiates a full sequence of automated voice calls (to police) and SMS messages (to emergency contacts) using Twilio.
 
 ---
 
-## 🛠 Tech Stack
+## Tech Stack
 
 * *Frontend:* Streamlit
 * *Voice Input:* SpeechRecognition & PyAudio
@@ -35,13 +35,13 @@ This project was built to solve a critical problem: in a crisis, language barrie
 
 ---
 
-## 🚀 Setup & Installation
+## Setup & Installation
 
 Follow these steps to get the project running on your local machine.
 
 ### 1. Clone the Repository
 
-git clone [https://github.com/your-username/your-repo-name.git](https://github.com/your-username/your-repo-name.git)
+git clone [https://github.com/your-username/your-repo-name.git]
 cd your-repo-name
 2. Create and Activate a Virtual Environment
 This keeps the project's dependencies isolated.
