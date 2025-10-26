@@ -45,22 +45,22 @@ git clone [https://github.com/your-username/your-repo-name.git]
 cd your-repo-name
 
 2. Create and Activate a Virtual Environment
+
 This keeps the project's dependencies isolated.
-
 Create:
-
 python -m venv venv
+
 Activate (Windows):
-
 .\venv\Scripts\activate
-Activate (Mac/Linux):
 
+Activate (Mac/Linux):
 source venv/bin/activate
 
 3. Install Dependencies
-Install all required packages from the requirements.txt file.
 
+Install all required packages from the requirements.txt file.
 pip install -r requirements.txt
+
 4. Set Up Environment Variables
 Create a file named .env in the project's root directory and add your secret API keys. The app will run in "simulation mode" for Twilio if these keys are left blank.
 
@@ -83,4 +83,5 @@ EMERGENCY_CONTACT_2="+91..."
 
 5. Run the Application
 streamlit run app.py
+```
 The application should now be running in your web browser!
