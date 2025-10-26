@@ -40,26 +40,37 @@ This project was built to solve a critical problem: in a crisis, language barrie
 Follow these steps to get the project running on your local machine.
 
 ### 1. Clone the Repository
-
-* git clone [https://github.com/your-username/your-repo-name.git]
-* cd your-repo-name
+```bash
+git clone [https://github.com/your-username/your-repo-name.git](https://github.com/your-username/your-repo-name.git)
+cd your-repo-name
 2. Create and Activate a Virtual Environment
-* This keeps the project's dependencies isolated.
+This keeps the project's dependencies isolated.
 
 Create:
 
-* python -m venv venv
-* Activate (Windows): .\venv\Scripts\activate
-  
-* Activate (Mac/Linux): source venv/bin/activate
+Bash
 
+python -m venv venv
+Activate (Windows):
+
+Bash
+
+.\venv\Scripts\activate
+Activate (Mac/Linux):
+
+Bash
+
+source venv/bin/activate
 3. Install Dependencies
-* Install all required packages from the requirements.txt file.
+Install all required packages from the requirements.txt file.
 
-* pip install -r requirements.txt
-  
+Bash
+
+pip install -r requirements.txt
 4. Set Up Environment Variables
-* Create a file named .env in the project's root directory and add your secret API keys. The app will run in "simulation mode" for Twilio if these keys are left blank.
+Create a file named .env in the project's root directory and add your secret API keys. The app will run in "simulation mode" for Twilio if these keys are left blank.
+
+Code snippet
 
 # Hugging Face API Key
 HF_API_KEY="hf_YourHuggingFaceKeyHere"
@@ -81,5 +92,4 @@ EMERGENCY_CONTACT_2="+91..."
 Bash
 
 streamlit run app.py
-The application should now be running in your web browser!
 The application should now be running in your web browser!
