@@ -1,4 +1,6 @@
 ## SEVA AI - POWERED BY AI, YOUR MULTILINGUAL HELPER DRIVEN BY CARE
+<img width="1904" height="672" alt="image" src="https://github.com/user-attachments/assets/64c3a68f-9e04-4d6f-b01f-7c2c20f1e5c5" />
+
 SevaAI is an intelligent, voice-activated assistant designed to provide immediate, multilingual support during home emergencies. It listens to user queries in various languages, differentiates between casual chat and critical emergencies, and responds with clear, actionable advice both visually and audibly in the user's native language.
 This project was built to solve a critical problem: in a crisis, language barriers should never delay a person's access to help.
 
